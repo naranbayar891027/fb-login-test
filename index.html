@@ -57,6 +57,22 @@
           'Та Facebook-ээр нэвтрээгүй байна.';
       }
     }
+    function statusChangeCallback(response) {
+  console.log('Facebook login status:', response);
+  if (response.status === 'connected') {
+    FB.api('/me', { fields: 'name,email' }, function(user) {
+      document.getElementById('status').innerHTML = 
+        'Сайн байна уу, ' + user.name + ' (' + user.email + ')';
+    });
+  } else if (response.status === 'not_authorized') {
+    document.getElementById('status').innerHTML = 
+      'Та апп-д нэвтрэх зөвшөөрөл өгөөгүй байна.';
+  } else {
+    document.getElementById('status').innerHTML = 
+      'Та Facebook-ээр нэвтрээгүй байна.';
+  }
+}
+
   </script>
 </body>
 </html>
